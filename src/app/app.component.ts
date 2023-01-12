@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { GetpostService } from './services/getpost.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +10,28 @@ export class AppComponent{
   title = 'Welcome to Angular';
   version = 15;
   isButtonClicked = false;
+  toDate: Date = new Date(); 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
+  rupay = 10000;
+
+  per: number= .74142;
+
   getData:any=[];
+  date!: string;
   
 
-  constructor(private api:GetpostService){}
+  constructor(){}
 
   ngOnInit(){
-    this.api.getAllPost().subscribe( (res) =>{
-        console.log(res);
-        this.getData = res
-    })
-  }
+    setInterval(() =>{
+      const currentDate = new Date();
+      this.date = currentDate.toLocaleTimeString();
+       }, 1000);
+     }
 
   onClicked(){
     this.isButtonClicked = !this.isButtonClicked;
